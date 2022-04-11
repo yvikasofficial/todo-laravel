@@ -85,9 +85,9 @@
                     <label for="status">Status</label>
                     <div>
                         <select id="status" value="{{$current->status}}" class="w-full rounded border-primary @error('status') is-invalid @enderror" name="status" required>
-                            <option value="todo">Next Up</option>
-                            <option value="progress">In Progress</option>
-                            <option value="complete">Complete</option>
+                            <option  {{$current->status == 'todo' ? 'selected' : ''}} value="todo">Next Up</option>
+                            <option {{$current->status == 'progress' ? 'selected' : ''}} value="progress">In Progress</option>
+                            <option {{$current->status == 'complete' ? 'selected' : ''}} value="complete">Complete</option>
                         </select>
                         @error('status')
                         <span class="text-red-500 text-sm">
@@ -100,7 +100,7 @@
             
             <div class="flex justify-center mt-9">
                 <button type="submit" class="bg-primary px-12 py-3 rounded text-white">
-                    {{ isset($is_edit) ? "SAVE" : "EDIT" }}
+                    {{ isset($is_edit) ? "SAVE" : "CREATE" }}
                 </button>
             </div>
         </form>
@@ -110,7 +110,8 @@
     @endisset
    
     <div class="flex h-screen relative" >
-        <div  class="flex flex-col py-6 px-6 w-1/6 bg-cGrey h-full">
+        <div class="w-1/6"></div>
+        <div  class="flex flex-col py-6 px-6 w-1/6 bg-cGrey h-full fixed top-0 left-0">
             <a  class="w-full py-2 mb-8 rounded-lg flex justify-center items-center gap-2 shadow-md hover:scale-105 bg-white" href="{{ url('/') }}">
                 <img class="h-4" src="{{ url('images/wrike-logo.png') }}" alt="" srcset="">
                 <span class="font-bold">Todify</span>

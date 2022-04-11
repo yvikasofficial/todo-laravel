@@ -16,7 +16,7 @@
            </a>
          </div>
      </div>
-     <div class="w-full flex gap-12 mt-8">
+     <div class="w-full flex gap-8 mt-8">
         <div class="flex-1">
             <div class="bg-cGrey p-2 rounded flex items-center justify-between mb-4">
                 <span class="font-bold">Next Up</span>
@@ -25,7 +25,7 @@
                 </div>
             </div> 
 
-            <div class="w-full flex flex-col gap-4">
+            <div class="w-full flex flex-col gap-8">
                 
                @foreach ($tasks_todo as $task)
                     <div class="rounded-xl shadow-lg px-4 py-6 border-2">
@@ -43,7 +43,7 @@
 
                             <div class="flex items-center gap-2">
                                 <a href="{{ route('home.edit', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/edit.svg')}}" alt="" srcset=""></a>
-                                <a href=""><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
+                                <a href="{{ route('tasks.destroy', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                 <div class="py-1 px-2 bg-black text-white rounded"> {{ count($tasks_progress)}}</div>
             </div> 
 
-            <div class="w-full flex flex-col gap-4">
+            <div class="w-full flex flex-col gap-8">
                 
                @foreach ($tasks_progress as $task)
                <div class="rounded-xl shadow-lg px-4 py-6 border-2">
@@ -88,27 +88,30 @@
                 <div class="py-1 px-2 bg-black text-white rounded"> {{ count($tasks_complete)}}</div>
             </div> 
 
-            @foreach ($tasks_complete as $task)
-               <div class="rounded-xl shadow-lg px-4 py-6 border-2">
-                    <div class="mb-4 flex justify-between">
-                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center bold text-white">H</div>
-                        <img class="h-6" src="{{ url('/images/more.svg')}}" alt="">
-                    </div>
-                    <h2 class="font-bold text-lg mb-2">{{ $task['title'] }}</h2>
-                    <p class="text-sm text-gray-400 mb-4"> {{ $task['description'] }}</p>
-                    <div class="flex justify-between">
-                        <div class="flex items-center gap-2 bg-blue-500 w-max py-1 text-white px-3 rounded">
-                            <img class="h-4" src="{{ url('/images/clock.svg')}}" alt="">
-                            <span class="text-sm">{{$task['due_date']}}</span>
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <a href="{{ route('home.edit', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/edit.svg')}}" alt="" srcset=""></a>
-                            <a href=""><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+            <div class="w-full flex flex-col gap-8">
+                @foreach ($tasks_complete as $task)
+                <div class="rounded-xl shadow-lg px-4 py-6 border-2">
+                     <div class="mb-4 flex justify-between">
+                         <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center bold text-white">H</div>
+                         <img class="h-6" src="{{ url('/images/more.svg')}}" alt="">
+                     </div>
+                     <h2 class="font-bold text-lg mb-2">{{ $task['title'] }}</h2>
+                     <p class="text-sm text-gray-400 mb-4"> {{ $task['description'] }}</p>
+                     <div class="flex justify-between">
+                         <div class="flex items-center gap-2 bg-blue-500 w-max py-1 text-white px-3 rounded">
+                             <img class="h-4" src="{{ url('/images/clock.svg')}}" alt="">
+                             <span class="text-sm">{{$task['due_date']}}</span>
+                         </div>
+ 
+                         <div class="flex items-center gap-2">
+                             <a href="{{ route('home.edit', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/edit.svg')}}" alt="" srcset=""></a>
+                             <a href=""><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
+                         </div>
+                     </div>
+                 </div>
+                @endforeach
+            </div>
+           
         </div>
      </div>
 </div>

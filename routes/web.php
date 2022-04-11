@@ -27,3 +27,4 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/home/create', [HomeController::class, 'create'])->name('home.create');
 Route::get('/home/edit/{task}', [HomeController::class, 'edit'])->name('home.edit');
+Route::get('/tasks/delete/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
