@@ -21,10 +21,97 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div class="flex h-screen" >
+<body class="relative">
+    @isset($modal)
+    <div class="fixed h-screen w-full bg-black z-10 bg-opacity-10 flex items-center justify-center">
+        <div class="bg-white py-12 px-6 rounded-lg w-96 relative">
+
+            <a href="{{ route('home') }}">
+                <div class="absolute right-6 top-6">
+                    X 
+                </div>
+            </a>
+
+           <h1 class="text-primary text-center bold text-lg">
+               {{ isset($is_edit) ? "EDIT TASK" : "CREATE TASK" }}
+           </h1>
+
+           <form class="form bg-white p-6 border-1" action="{{ isset($is_edit) ? route("tasks.update", ["task" => $current->id]) : route("tasks.store") }}" method="POST">
+            @isset($is_edit)
+                @method('PUT')
+            @endisset
+            @csrf
+            <div class="mb-4">
+                <label for="title">Title</label>
+                <div>
+                    <input id="title" type="text" value="{{$current->title ?? '' }}" class="w-full rounded border-primary @error('title') is-invalid @enderror" name="title" required>
+
+                    @error('title')
+                    <span class="text-red-500 text-sm">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="description">Description</label>
+                <div>
+                    <input id="description" type="text" value="{{$current->description ?? '' }}" class="w-full rounded border-primary @error('description') is-invalid @enderror" name="description" required>
+
+                    @error('description')
+                    <span class="text-red-500 text-sm">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="due_date">Due Date</label>
+                <div>
+                    <input id="due_date" type="date" value="{{$current->due_date ?? '' }}" class="w-full rounded border-primary @error('due_date') is-invalid @enderror" name="due_date" required>
+
+                    @error('due_date')
+                    <span class="text-red-500 text-sm">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            @isset($is_edit)
+                <div class="mb-4">
+                    <label for="status">Status</label>
+                    <div>
+                        <select id="status" value="{{$current->status}}" class="w-full rounded border-primary @error('status') is-invalid @enderror" name="status" required>
+                            <option value="todo">Next Up</option>
+                            <option value="progress">In Progress</option>
+                            <option value="complete">Complete</option>
+                        </select>
+                        @error('status')
+                        <span class="text-red-500 text-sm">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+            @endisset
+            
+            <div class="flex justify-center mt-9">
+                <button type="submit" class="bg-primary px-12 py-3 rounded text-white">
+                    {{ isset($is_edit) ? "SAVE" : "EDIT" }}
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+   
+    @endisset
+   
+    <div class="flex h-screen relative" >
         <div  class="flex flex-col py-6 px-6 w-1/6 bg-cGrey h-full">
-            <a  class="w-full py-2 mb-8 rounded-lg flex justify-center items-center gap-2 shadow-md hover:scale-105 transition-all bg-white" href="{{ url('/') }}">
+            <a  class="w-full py-2 mb-8 rounded-lg flex justify-center items-center gap-2 shadow-md hover:scale-105 bg-white" href="{{ url('/') }}">
                 <img class="h-4" src="{{ url('images/wrike-logo.png') }}" alt="" srcset="">
                 <span class="font-bold">Todify</span>
             </a>
