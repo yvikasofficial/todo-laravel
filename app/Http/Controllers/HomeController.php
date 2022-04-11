@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all(); 
+        $tasks = Task::all()->sortBy('updated_at', SORT_REGULAR, true); 
         $tasks_todo = $tasks->filter(function ($item) {
             return $item->status === 'todo';
         })->values();
@@ -38,7 +38,6 @@ class HomeController extends Controller
         })->values();
         
         return view('home', [
-            'tasks' => Task::all(),
             'tasks_todo' => $tasks_todo,
             'tasks_progress' => $tasks_progress,
             'tasks_complete' => $tasks_complete,
@@ -52,7 +51,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        $tasks = Task::all(); 
+        $tasks = Task::all()->sortBy('updated_at', SORT_REGULAR, true);
         $tasks_todo = $tasks->filter(function ($item) {
             return $item->status === 'todo';
         })->values();
@@ -67,7 +66,6 @@ class HomeController extends Controller
 
         return view('home', [
             'modal' => true,
-            'tasks' => Task::all(),
             'tasks_todo' => $tasks_todo,
             'tasks_progress' => $tasks_progress,
             'tasks_complete' => $tasks_complete,
@@ -76,7 +74,7 @@ class HomeController extends Controller
 
     public function edit(Task $task)
     {
-        $tasks = Task::all(); 
+        $tasks = Task::all()->sortBy('updated_at', SORT_REGULAR, true); 
         $tasks_todo = $tasks->filter(function ($item) {
             return $item->status === 'todo';
         })->values();
@@ -93,7 +91,6 @@ class HomeController extends Controller
         return view('home', [
             'modal' => true,  
             'is_edit' => true, 
-            'tasks' => Task::all(),
             'current' => $task,
             'tasks_todo' => $tasks_todo,
             'tasks_progress' => $tasks_progress,

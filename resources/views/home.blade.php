@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -38,7 +40,7 @@
                         <div class="flex justify-between">
                             <div class="flex items-center gap-2 bg-orange-500 w-max py-1 text-white px-3 rounded">
                                 <img class="h-4" src="{{ url('/images/clock.svg')}}" alt="">
-                                <span class="text-sm">{{$task['due_date']}}</span>
+                                <span class="text-sm">{{\Carbon\Carbon::parse($task['due_date'])->format('F')}} {{\Carbon\Carbon::parse($task['due_date'])->format('d')}}</span>
                             </div>
 
                             <div class="flex items-center gap-2">
@@ -70,12 +72,12 @@
                     <div class="flex justify-between">
                         <div class="flex items-center gap-2 bg-yellow-400 w-max py-1 text-white px-3 rounded">
                             <img class="h-4" src="{{ url('/images/clock.svg')}}" alt="">
-                            <span class="text-sm">{{$task['due_date']}}</span>
+                            <span class="text-sm">{{\Carbon\Carbon::parse($task['due_date'])->format('F')}} {{\Carbon\Carbon::parse($task['due_date'])->format('d')}}</span>
                         </div>
 
                         <div class="flex items-center gap-2">
                             <a href="{{ route('home.edit', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/edit.svg')}}" alt="" srcset=""></a>
-                            <a href=""><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
+                            <a href="{{ route('tasks.destroy', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
                         </div>
                     </div>
                 </div>
@@ -100,12 +102,12 @@
                      <div class="flex justify-between">
                          <div class="flex items-center gap-2 bg-blue-500 w-max py-1 text-white px-3 rounded">
                              <img class="h-4" src="{{ url('/images/clock.svg')}}" alt="">
-                             <span class="text-sm">{{$task['due_date']}}</span>
+                             <span class="text-sm">{{\Carbon\Carbon::parse($task['due_date'])->format('F')}} {{\Carbon\Carbon::parse($task['due_date'])->format('d')}}</span>
                          </div>
  
                          <div class="flex items-center gap-2">
                              <a href="{{ route('home.edit', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/edit.svg')}}" alt="" srcset=""></a>
-                             <a href=""><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
+                             <a href="{{ route('tasks.destroy', ['task'=> $task->id]) }}"><img class="h-6" src="{{ url('/images/delete.svg')}}" alt="" srcset=""></a>
                          </div>
                      </div>
                  </div>
